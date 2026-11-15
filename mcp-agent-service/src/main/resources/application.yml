@@ -1,0 +1,25 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: mcp-agent-service
+  threads:
+    virtual:
+      enabled: true
+
+cebp:
+  services:
+    core-management-url: ${CORE_MANAGEMENT_BASE_URL:http://localhost:8081}
+    worker-manager-url: ${WORKER_MANAGER_BASE_URL:http://localhost:8082}
+    analytics-results-url: ${ANALYTICS_RESULTS_BASE_URL:http://localhost:8083}
+  ai:
+    gemini-api-key: ${GEMINI_API_KEY:}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+  paths-to-exclude:
+    - /mcp/**

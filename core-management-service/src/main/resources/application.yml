@@ -1,0 +1,38 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: core-management-service
+  threads:
+    virtual:
+      enabled: true
+  datasource:
+    # Defaults to PostgreSQL `core_db` when running docker-compose, or H2 Postgres-compatibility mode if started standalone without Docker
+    url: ${SPRING_DATASOURCE_URL:jdbc:h2:mem:core_db;MODE=PostgreSQL;DB_CLOSE_DELAY=-1}
+    username: ${SPRING_DATASOURCE_USERNAME:cebp}
+    password: ${SPRING_DATASOURCE_PASSWORD:cebp_secret}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  kafka:
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+cebp:
+  tfnsw:
+    base-url: https://api.transport.nsw.gov.au/v1
+    api-key: ${TFNSW_API_KEY:}
+  tfl:
+    base-url: https://api.tfl.gov.uk
+  hsl:
+    mqtt-broker-url: ${HSL_MQTT_BROKER_URL:tcp://mqtt.hsl.fi:1883}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
